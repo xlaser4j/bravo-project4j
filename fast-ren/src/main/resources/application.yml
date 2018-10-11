@@ -1,0 +1,88 @@
+# Tomcat Config
+server:
+  tomcat:
+    uri-encoding: utf-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8090
+  connection-timeout: 5000ms
+  servlet:
+    context-path: /ren
+
+
+# Spring Config
+spring:
+  # 加载其他配置文件dev, test, prod
+  profiles:
+    active: dev
+
+  # jackson格式化时间(mvc默认返回json时间戳)
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  # 请求访问大小限制
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+
+  # redis相关配置
+  redis:
+    # redis缓存: true开启 / false关闭
+    open: false
+    database: 0
+    host: localhost
+    port: 6379
+    password: # 默认为空
+    timeout: 6000ms
+    # 连接池配置(负数没有限制)
+    jedis:
+      pool:
+        max-wait: -1ms # 最大阻塞时间
+        max-active: 1000
+        max-idle: 10
+        min-idle: 5
+
+  # mvc相关配置
+  mvc:
+    # 当请求找不到对应的HandlerMethod时抛出NoHandlerFoundException
+    throw-exception-if-no-handler-found: true
+    # 指定静态资源路径,防止下述的关闭资源处理,导致无法访问静态资源
+    static-path-pattern: /static/**
+  # 关闭默认的资源处理,避免抛出下述noHandler异常时,自动跳到默认的404页面(whiteLabel error page)
+  resources:
+    add-mappings: false
+
+# mybatis-plus Config
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/.xml
+  type-aliases-package: com.xlasers.opening.modules.*.entity
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      table-underline: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+    refresh: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # 结果集中值为 null 的时候是否调用映射对象的 Setter（Map对象时为put）方法
+    call-setters-on-nulls: false
+
+
+fastren:
+  redis:
+    open: false
+  shiro:
+    redis: false
+  # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
+  jwt:
+    # 加密秘钥
+    secret: f4e2e52034348f86b67cde581c0f9eb5[www.renren.io]
+    # token有效时长，7天，单位秒
+    expire: 604800
+    header: token

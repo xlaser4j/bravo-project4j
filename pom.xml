@@ -32,7 +32,7 @@
         <druid.version>1.0.27</druid.version>
         <HikariCP.version>2.7.2</HikariCP.version>
         <hutool-all.version>4.0.12</hutool-all.version>
-        <guava.version>25.0-jre</guava.version>
+        <guava.version>26.0-jre</guava.version>
         <modelmapper.version>1.1.0</modelmapper.version>
         <lombok.version>1.18.0</lombok.version>
         <fastjson.version>1.2.31</fastjson.version>
@@ -53,7 +53,6 @@
         <compiler.version>3.0</compiler.version>
         <jacoco.version>0.7.2.201409121644</jacoco.version>
         <camel.version>2.16.1</camel.version>
-        <guava.version>19.0</guava.version>
         <mockito.version>1.10.19</mockito.version>
         <apache-httpcomponents.version>4.5.2</apache-httpcomponents.version>
         <htmlunit.version>2.22</htmlunit.version>
@@ -358,11 +357,13 @@
             </dependency>
 
 
+            <!--JSON Web Token for Java: jwt验证 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jwt.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.github.axet</groupId>
                 <artifactId>kaptcha</artifactId>
