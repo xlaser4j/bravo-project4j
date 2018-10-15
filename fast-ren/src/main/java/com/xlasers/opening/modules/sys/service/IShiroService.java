@@ -28,12 +28,12 @@ public interface IShiroService {
     Set<String> listPermissions(long userId);
 
     /**
-     * Gets by token.
+     * Get UserToken by token.
      *
      * @param token the token
      * @return the by token
      */
-    SysUserTokenDO getByToken(String token);
+    SysUserTokenDO getUserTokenByToken(String token);
 
     /**
      * Gets user by id.

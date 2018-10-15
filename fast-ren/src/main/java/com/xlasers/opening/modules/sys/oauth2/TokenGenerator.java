@@ -3,6 +3,10 @@ package com.xlasers.opening.modules.sys.oauth2;
 import java.security.MessageDigest;
 import java.util.UUID;
 
+import com.xlasers.opening.common.enums.Status;
+import com.xlasers.opening.common.exception.FastRenException;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * The type Token generator.
  *
@@ -14,6 +18,7 @@ import java.util.UUID;
  * @version: V1.0
  * @modified: Elijah.D
  */
+@Slf4j
 public class TokenGenerator {
     /**
      * 16进制数
@@ -53,8 +58,8 @@ public class TokenGenerator {
             return toHexString(msgDigest);
         } catch (Exception e) {
 
-            //todo 自定义异常
-            throw new RuntimeException("生成Token失败", e);
+            log.error("【TokenGenerator】生成Token失败 !");
+            throw new FastRenException(Status.FAILED_CREATE_TOKEN);
         }
     }
 

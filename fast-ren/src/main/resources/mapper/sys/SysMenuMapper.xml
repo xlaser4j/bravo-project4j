@@ -15,4 +15,17 @@
         <result column="order_num" property="orderNum"/>
     </resultMap>
 
+    <select id="selectAllPermsByUserId" resultType="java.lang.String">
+
+    </select>
+
+    <select id="selectAllMenuId" resultType="java.lang.Long">
+
+    </select>
+
+    <select id="selectByUserName"
+            resultType="com.xlasers.opening.modules.sys.entity.SysUserDO">
+
+    </select>
+
 </mapper>

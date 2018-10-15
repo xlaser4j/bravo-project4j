@@ -2,6 +2,7 @@ package com.xlasers.opening.modules.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xlasers.opening.modules.sys.entity.SysUserDO;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -16,5 +17,6 @@ import com.xlasers.opening.modules.sys.entity.SysUserDO;
  * @version: V1.0
  * @modified: Elijah.D
  */
+@Repository
 public interface SysUserMapper extends BaseMapper<SysUserDO> {
 }
