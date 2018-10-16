@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      first:
+        url: jdbc:mysql://localhost:3306/ren_one?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: 1234
+      second:
+        url: jdbc:mysql://localhost:3306/ren_one?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: 1234
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      #PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: -1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      #validation-query: SELECT 1 FROM DUAL
+      #用于展示Druid的统计信息,账号密码
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: 1
+        login-password: p
+      #插件
+      filter:
+        #监控统计
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        #防止sql注入
+        wall:
+          config:
+            multi-statement-allow: true
+        #日志
+        log4j:
+          enabled: false
+
+

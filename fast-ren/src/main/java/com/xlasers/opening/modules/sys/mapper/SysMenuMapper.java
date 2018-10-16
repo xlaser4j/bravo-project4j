@@ -5,6 +5,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xlasers.opening.modules.sys.entity.SysMenuDO;
 import com.xlasers.opening.modules.sys.entity.SysUserDO;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Repository;
  * @version: V1.0
  * @modified: Elijah.D
  */
-@Repository
+@Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenuDO> {
     /**
      * 查询用户的所有权限

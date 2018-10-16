@@ -2,6 +2,7 @@ package com.xlasers.opening.modules.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xlasers.opening.modules.sys.entity.SysRoleDO;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -16,5 +17,6 @@ import com.xlasers.opening.modules.sys.entity.SysRoleDO;
  * @version: V1.0
  * @modified: Elijah.D
  */
+@Mapper
 public interface SysRoleMapper extends BaseMapper<SysRoleDO> {
 }

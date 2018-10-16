@@ -2,6 +2,7 @@ package com.xlasers.opening.modules.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xlasers.opening.modules.sys.entity.SysUserTokenDO;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Repository;
  * @version: V1.0
  * @modified: Elijah.D
  */
-@Repository
+@Mapper
 public interface SysUserTokenMapper extends BaseMapper<SysUserTokenDO> {
     /**
      * Select userToken by token.
