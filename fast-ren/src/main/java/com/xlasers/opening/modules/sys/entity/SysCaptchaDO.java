@@ -1,12 +1,14 @@
 package com.xlasers.opening.modules.sys.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -22,14 +24,16 @@ import lombok.experimental.Accessors;
  * @modified: Elijah.D
  */
 @Data
+@TableName("sys_captcha")
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@AllArgsConstructor
 public class SysCaptchaDO extends Model<SysCaptchaDO> {
     private static final long serialVersionUID = 1L;
 
     /**
      * uuid
      */
+    @TableId(type = IdType.INPUT)
     private String uuid;
 
     /**
@@ -40,7 +44,7 @@ public class SysCaptchaDO extends Model<SysCaptchaDO> {
     /**
      * 过期时间
      */
-    private LocalDateTime expireTime;
+    private Long expireTime;
 
     /**
      * 获取主键值

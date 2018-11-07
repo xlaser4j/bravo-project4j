@@ -3,7 +3,9 @@ package com.xlasers.opening.modules.sys.form;
 import lombok.Data;
 
 /**
- * The type Login form.
+ * <p>
+ * form: 登陆表单
+ * </p>
  *
  * @package: com.xlasers.opening.modules.sys.form
  * @author: Elijah.D

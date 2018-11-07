@@ -16,4 +16,12 @@ public final class ShiroConsts {
      * 超级管理员ID
      */
     public static final int SUPER_ADMIN = 1;
+
+    /**
+     * 验证码有效期: 2分钟
+     */
+    public static final long CAPTCHA_EXPIRY_DATE = 2 * 60 * 1000L;
+
+    private ShiroConsts() {
+    }
 }

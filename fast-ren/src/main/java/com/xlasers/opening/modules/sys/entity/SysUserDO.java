@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +25,7 @@ import lombok.experimental.Accessors;
  * @modified: Elijah.D
  */
 @Data
+@TableName("sys_user")
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class SysUserDO extends Model<SysUserDO> {
@@ -71,6 +73,15 @@ public class SysUserDO extends Model<SysUserDO> {
      * 创建时间
      */
     private LocalDateTime createTime;
+
+    /**
+     * Instantiates a new Sys user do.
+     *
+     * @param username the username
+     */
+    public SysUserDO(String username) {
+        this.username = username;
+    }
 
     @Override
     protected Serializable pkVal() {

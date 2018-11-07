@@ -3,6 +3,7 @@ package com.xlasers.opening.modules.sys.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,7 @@ import lombok.experimental.Accessors;
  * @modified: Elijah.D
  */
 @Data
+@TableName("sys_user_token")
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class SysUserTokenDO extends Model<SysUserTokenDO> {

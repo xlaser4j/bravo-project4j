@@ -3,7 +3,6 @@ package com.xlasers.opening.modules.sys.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xlasers.opening.modules.sys.entity.SysUserDO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * <p>
