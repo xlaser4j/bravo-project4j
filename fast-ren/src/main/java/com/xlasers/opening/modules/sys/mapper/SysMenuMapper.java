@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xlasers.opening.modules.sys.entity.SysMenuDO;
 import com.xlasers.opening.modules.sys.entity.SysUserDO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -23,6 +22,14 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenuDO> {
+    /**
+     * <p> 根据父级id查询menu实体
+     *
+     * @param id parentId
+     * @return
+     */
+    List<SysMenuDO> listMenuByParentId(Long id);
+
     /**
      * 查询用户的所有权限
      *

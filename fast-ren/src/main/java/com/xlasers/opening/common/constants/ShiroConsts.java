@@ -1,5 +1,8 @@
 package com.xlasers.opening.common.constants;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * The type Shiro consts.
  *
@@ -15,7 +18,7 @@ public final class ShiroConsts {
     /**
      * 超级管理员ID
      */
-    public static final int SUPER_ADMIN = 1;
+    public static final Long SUPER_ADMIN = 1L;
 
     /**
      * 验证码有效期: 2分钟
@@ -23,5 +26,27 @@ public final class ShiroConsts {
     public static final long CAPTCHA_EXPIRY_DATE = 2 * 60 * 1000L;
 
     private ShiroConsts() {
+    }
+
+    /**
+     * <p> 菜单类型
+     */
+    @Getter
+    @AllArgsConstructor
+    public enum MenuType {
+        /**
+         * 目录
+         */
+        CATALOG(0),
+        /**
+         * 菜单
+         */
+        MENU(1),
+        /**
+         * 按钮
+         */
+        BUTTON(2);
+
+        private final int value;
     }
 }

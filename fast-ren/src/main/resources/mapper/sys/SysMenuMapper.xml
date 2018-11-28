@@ -28,4 +28,10 @@
 
     </select>
 
+    <!--根据parent id 查询实体-->
+    <select id="listMenuByParentId"
+            resultType="com.xlasers.opening.modules.sys.entity.SysMenuDO">
+        SELECT *FROM sys_menu where parent_id = #{id}
+    </select>
+
 </mapper>

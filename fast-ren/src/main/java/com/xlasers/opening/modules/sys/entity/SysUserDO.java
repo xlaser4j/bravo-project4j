@@ -1,7 +1,6 @@
 package com.xlasers.opening.modules.sys.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -67,12 +66,12 @@ public class SysUserDO extends Model<SysUserDO> {
     /**
      * 创建者ID
      */
-    private Long createUserId;
+    private String createBy;
 
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Long createAt;
 
     /**
      * Instantiates a new Sys user do.

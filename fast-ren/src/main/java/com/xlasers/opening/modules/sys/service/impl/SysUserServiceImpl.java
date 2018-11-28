@@ -1,5 +1,7 @@
 package com.xlasers.opening.modules.sys.service.impl;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xlasers.opening.modules.sys.entity.SysUserDO;
@@ -23,13 +25,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserDO> implements ISysUserService {
     /**
-     * 根据用户名获取用户信息
+     * <p> 根据用户名获取用户信息
      *
      * @param username 用户名
      * @return user 实体
      */
     @Override
     public SysUserDO getUserByName(String username) {
-        return baseMapper.selectOne(new QueryWrapper<SysUserDO>().eq("username",username));
+        return baseMapper.selectOne(new QueryWrapper<SysUserDO>().eq("username", username));
+    }
+
+    /**
+     * <p> 获取用户权限id集合
+     *
+     * @param id 用户id
+     * @return list 权限ids
+     */
+    @Override
+    public List<Long> listMenuIdsByUserId(Long id) {
+        return baseMapper.selectMenuIdsByUserId(id);
     }
 }

@@ -1,7 +1,6 @@
 package com.xlasers.opening.modules.sys.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -67,7 +66,7 @@ public class SysLogDO extends Model<SysLogDO> {
     /**
      * 创建时间
      */
-    private LocalDateTime createDate;
+    private Long createDate;
 
     @Override
     protected Serializable pkVal() {

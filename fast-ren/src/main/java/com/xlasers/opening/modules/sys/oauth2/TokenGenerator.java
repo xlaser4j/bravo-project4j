@@ -8,12 +8,14 @@ import com.xlasers.opening.common.exception.FastRenException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * The type Token generator.
+ * <p>
+ * generator: token生成器
+ * </p>
  *
  * @package: com.xlasers.opening.modules.sys.oauth2
  * @author: Elijah.D
  * @time: CreateAt 2018/10/15 && 10:42
- * @description: token生成器
+ * @description: 生成加密token
  * @copyright: Copyright © 2018 xlasers
  * @version: V1.0
  * @modified: Elijah.D
@@ -29,11 +31,9 @@ public class TokenGenerator {
     }
 
     /**
-     * Generate token string.
-     *
      * <p> 生成token
      *
-     * @return the string
+     * @return token 随机token
      */
     public static String generateToken() {
 
@@ -41,12 +41,10 @@ public class TokenGenerator {
     }
 
     /**
-     * Generate value string.
+     * <p> 加密计算token
      *
-     * <p> 生成token
-     *
-     * @param data the data
-     * @return the string
+     * @param data 随机token
+     * @return res 加密值
      */
     public static String generateValue(String data) {
 
@@ -68,8 +66,8 @@ public class TokenGenerator {
      *
      * <p> 生成16进制数
      *
-     * @param data the data
-     * @return the string
+     * @param data token字节
+     * @return res 生成16进制
      */
     public static String toHexString(byte[] data) {
 
@@ -79,10 +77,10 @@ public class TokenGenerator {
 
         StringBuilder builder = new StringBuilder(data.length * 2);
         for (byte b : data) {
-
             builder.append(HEX_CODE[b >> 4 & 0xF]);
             builder.append(HEX_CODE[b & 0xF]);
         }
+
         return builder.toString();
     }
 }

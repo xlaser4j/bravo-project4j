@@ -69,7 +69,12 @@ public enum Status {
     /**
      * 账号密码不匹配
      */
-    ACCOUNT_NOT_MATCH(-1003, "错误 ! 账号或密码不正确 !");
+    ACCOUNT_NOT_MATCH(-1003, "错误 ! 账号或密码不正确 !"),
+
+    /**
+     *
+     */
+    STATUS_LOCKED(-1004, "错误 ! 状态已锁定,请联系管理员 !");
 
     /**
      * 状态码

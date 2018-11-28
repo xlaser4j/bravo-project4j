@@ -66,7 +66,7 @@ public class SysCaptchaServiceImpl extends ServiceImpl<SysCaptchaMapper, SysCapt
      *
      * @param uuid 唯一id
      * @param code 验证码
-     * @return 成功:{@code true} or 失败:{@code false}
+     * @return 成功 {@code true} or 失败 {@code false}
      */
     @Override
     public boolean validate(String uuid, String code) {

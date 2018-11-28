@@ -4,7 +4,9 @@ import com.xlasers.opening.modules.sys.entity.SysUserDO;
 import org.apache.shiro.SecurityUtils;
 
 /**
- * The type Abstract controller.
+ * <p>
+ * controller: 通用获取登陆用户信息
+ * </p>
  *
  * @package: com.xlasers.opening.modules.sys.controller
  * @author: Elijah.D
@@ -16,20 +18,29 @@ import org.apache.shiro.SecurityUtils;
  */
 public abstract class AbstractController {
     /**
-     * Gets user.
+     * <p> 获取已经登陆用户
      *
-     * @return the user
+     * @return user 用户实体
      */
     protected SysUserDO getUser() {
         return (SysUserDO) SecurityUtils.getSubject().getPrincipal();
     }
 
     /**
-     * Gets user id.
+     * <p> 获取用户登陆id
      *
-     * @return the user id
+     * @return id 用户id
      */
     protected Long getUserId() {
         return getUser().getUserId();
+    }
+
+    /**
+     * <p> 获取用户登陆name
+     *
+     * @return username 用户名
+     */
+    protected String getUsername() {
+        return getUser().getUsername();
     }
 }

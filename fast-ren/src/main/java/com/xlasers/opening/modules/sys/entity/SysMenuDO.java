@@ -1,8 +1,10 @@
 package com.xlasers.opening.modules.sys.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -67,6 +69,12 @@ public class SysMenuDO extends Model<SysMenuDO> {
      * 排序
      */
     private Integer orderNum;
+
+    /**
+     * 构建树形结构
+     */
+    @TableField(exist = false)
+    private List<?> treeList;
 
     @Override
     protected Serializable pkVal() {

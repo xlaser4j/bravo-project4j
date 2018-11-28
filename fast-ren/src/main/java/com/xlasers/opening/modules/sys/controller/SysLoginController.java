@@ -2,7 +2,6 @@ package com.xlasers.opening.modules.sys.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,6 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ImageUtil;
 import cn.hutool.core.util.StrUtil;
 import com.xlasers.opening.common.ApiResponse;
-import com.xlasers.opening.common.enums.Status;
 import com.xlasers.opening.common.exception.FastRenException;
 import com.xlasers.opening.modules.sys.entity.SysUserDO;
 import com.xlasers.opening.modules.sys.form.LoginForm;
@@ -25,8 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.xlasers.opening.common.enums.Status.ACCOUNT_NOT_MATCH;
-import static com.xlasers.opening.common.enums.Status.CAPTCHA_NOT_MATCH;
+import static com.xlasers.opening.common.enums.Status.*;
 
 /**
  * <p>
@@ -43,17 +40,21 @@ import static com.xlasers.opening.common.enums.Status.CAPTCHA_NOT_MATCH;
  */
 @RestController
 public class SysLoginController extends AbstractController {
-    @Autowired
-    private ISysUserService userService;
+    private final ISysUserService userService;
+
+    private final ISysCaptchaService captchaService;
+
+    private final ISysUserTokenService userTokenService;
 
     @Autowired
-    private ISysCaptchaService captchaService;
-
-    @Autowired
-    private ISysUserTokenService userTokenService;
+    public SysLoginController(ISysUserService userService, ISysCaptchaService captchaService, ISysUserTokenService userTokenService) {
+        this.userService = userService;
+        this.captchaService = captchaService;
+        this.userTokenService = userTokenService;
+    }
 
     /**
-     * 获取验证码
+     * <p> 获取验证码
      *
      * @param res  response
      * @param uuid 验证码唯一id
@@ -72,23 +73,42 @@ public class SysLoginController extends AbstractController {
     }
 
     /**
-     * 登陆验证
+     * <p> 登陆验证
      *
      * @param form 登陆表单{@link LoginForm}
      * @return res
      */
     @PostMapping("/sys/login")
     public ApiResponse login(@RequestBody LoginForm form) {
+
+        // 验证码
         boolean flag = captchaService.validate(form.getUuid(), form.getCaptcha());
         if (flag) {
             throw new FastRenException(CAPTCHA_NOT_MATCH);
         }
 
+        // 账号密码
         SysUserDO user = userService.getUserByName(form.getUsername());
-        if (user == null || StrUtil.equals(user.getPassword(),new Sha256Hash(form.getPassword(),user.getSalt()).toHex())) {
+        if (user == null || StrUtil.equals(user.getPassword(), new Sha256Hash(form.getPassword(), user.getSalt()).toHex())) {
             throw new FastRenException(ACCOUNT_NOT_MATCH);
         }
 
-        return null;
+        // 状态
+        if (user.getStatus() == 0) {
+            throw new FastRenException(STATUS_LOCKED);
+        }
+
+        return userTokenService.createToken(user.getUserId());
+    }
+
+    /**
+     * <p> 登陆退出,修改token值
+     */
+    @PostMapping("/sys/logout")
+    public ApiResponse logout() {
+
+        userTokenService.updateToken(getUserId());
+
+        return ApiResponse.ofSuccess();
     }
 }
