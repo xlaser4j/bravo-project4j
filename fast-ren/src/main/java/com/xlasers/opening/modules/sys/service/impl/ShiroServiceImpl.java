@@ -72,7 +72,7 @@ public class ShiroServiceImpl implements IShiroService {
             permList = Lists.newArrayListWithExpectedSize(menus.size());
             menus.forEach(o -> permList.add(o.getPerms()));
         } else {
-            permList = menuMapper.selectAllPermsByUserId(userId);
+            permList = menuMapper.listAllPermsByUserId(userId);
         }
 
         // 权限集合

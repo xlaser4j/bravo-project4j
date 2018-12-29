@@ -3,6 +3,7 @@ package com.xlasers.opening.modules.sys.service.impl;
 import java.util.Iterator;
 import java.util.List;
 
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
@@ -10,6 +11,7 @@ import com.xlasers.opening.common.constants.ShiroConsts;
 import com.xlasers.opening.modules.sys.entity.SysMenuDO;
 import com.xlasers.opening.modules.sys.mapper.SysMenuMapper;
 import com.xlasers.opening.modules.sys.service.ISysMenuService;
+import com.xlasers.opening.modules.sys.service.ISysRoleMenuService;
 import com.xlasers.opening.modules.sys.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +35,12 @@ import static com.xlasers.opening.common.constants.ShiroConsts.SUPER_ADMIN;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> implements ISysMenuService {
     private final ISysUserService userService;
 
+    private final ISysRoleMenuService relationService;
+
     @Autowired
-    public SysMenuServiceImpl(ISysUserService userService) {
+    public SysMenuServiceImpl(ISysUserService userService, ISysRoleMenuService relationService) {
         this.userService = userService;
+        this.relationService = relationService;
     }
 
     /**
@@ -44,7 +49,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> im
      * <p> 后续递归构建权限tree时,直接set下级,同时当查询下级不包含下级时,退出递归
      *
      * @param parentId 父菜单ID
-     * @param menuIds  用户菜单ID集合 {@code null时为管理员权限}
+     * @param menuIds  用户菜单ID集合 {@code menuIds为null,parentId为0时为管理员权限}
      * @return list 权限集合
      */
     @Override
@@ -70,7 +75,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> im
      */
     @Override
     public List<SysMenuDO> listMenuNotButton() {
-        return null;
+        return baseMapper.listMenuNotButton();
     }
 
     /**
@@ -100,7 +105,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> im
     @Override
     public void deleteById(Long id) {
         removeById(id);
-        // TODO
+        relationService.removeByMap(Dict.create().set("menu_id", id));
     }
 
     /**
@@ -109,7 +114,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> im
      * @param ids 拥有id集合
      * @return list 权限tree
      */
-    public List<SysMenuDO> buildAllMenuTree(List<Long> ids) {
+    private List<SysMenuDO> buildAllMenuTree(List<Long> ids) {
 
         List<SysMenuDO> subMenus = listSubMenuByParentId(0L, ids);
 
@@ -125,7 +130,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> im
      * @param ids   用户权限id集合
      * @return list 子类树
      */
-    public List<SysMenuDO> recurseBuildSubTree(List<SysMenuDO> menus, List<Long> ids) {
+    private List<SysMenuDO> recurseBuildSubTree(List<SysMenuDO> menus, List<Long> ids) {
 
         List<SysMenuDO> subMenus = Lists.newArrayListWithExpectedSize(10);
         Iterator<SysMenuDO> it = menus.iterator();

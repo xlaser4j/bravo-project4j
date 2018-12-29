@@ -3,6 +3,11 @@ package com.xlasers.opening.modules.sys.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -38,11 +43,13 @@ public class SysMenuDO extends Model<SysMenuDO> {
     /**
      * 父菜单ID，一级菜单为0
      */
+    @NotNull(message = "【新增/修改菜单】异常! 上级id不能为空 !")
     private Long parentId;
 
     /**
      * 菜单名称
      */
+    @NotBlank(message = "【新增/修改菜单】异常! 菜单名称不能为空 !")
     private String name;
 
     /**
@@ -58,6 +65,8 @@ public class SysMenuDO extends Model<SysMenuDO> {
     /**
      * 类型   0：目录   1：菜单   2：按钮
      */
+    @Min(value = 0, message = "【新增/修改菜单】异常! 菜单类型错误-> 0:目录, 1:菜单, 2:按钮 !")
+    @Max(value = 2, message = "【新增/修改菜单】异常! 菜单类型错误-> 0:目录, 1:菜单, 2:按钮 !")
     private Integer type;
 
     /**
@@ -75,6 +84,12 @@ public class SysMenuDO extends Model<SysMenuDO> {
      */
     @TableField(exist = false)
     private List<?> treeList;
+
+    /**
+     * 返回权限列表时的父级名称
+     */
+    @TableField(exist = false)
+    private String parentName;
 
     @Override
     protected Serializable pkVal() {

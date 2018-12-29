@@ -15,15 +15,15 @@
         <result column="order_num" property="orderNum"/>
     </resultMap>
 
-    <select id="selectAllPermsByUserId" resultType="java.lang.String">
+    <select id="listAllPermsByUserId" resultType="java.lang.String">
 
     </select>
 
-    <select id="selectAllMenuId" resultType="java.lang.Long">
+    <select id="listAllMenuId" resultType="java.lang.Long">
 
     </select>
 
-    <select id="selectByUserName"
+    <select id="getByUserName"
             resultType="com.xlasers.opening.modules.sys.entity.SysUserDO">
 
     </select>
@@ -31,7 +31,13 @@
     <!--根据parent id 查询实体-->
     <select id="listMenuByParentId"
             resultType="com.xlasers.opening.modules.sys.entity.SysMenuDO">
-        SELECT *FROM sys_menu where parent_id = #{id}
+        SELECT * FROM sys_menu where parent_id = #{id}
+    </select>
+
+    <!--获取非菜单按钮-->
+    <select id="listMenuNotButton"
+            resultType="com.xlasers.opening.modules.sys.entity.SysMenuDO">
+        SELECT * FROM sys_menu WHERE type != 2
     </select>
 
 </mapper>

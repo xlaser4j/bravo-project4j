@@ -36,7 +36,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenuDO> {
      * @param userId 用户ID
      * @return the list
      */
-    List<String> selectAllPermsByUserId(Long userId);
+    List<String> listAllPermsByUserId(Long userId);
 
     /**
      * 查询用户的所有菜单ID
@@ -44,7 +44,14 @@ public interface SysMenuMapper extends BaseMapper<SysMenuDO> {
      * @param userId the user id
      * @return the list
      */
-    List<Long> selectAllMenuId(Long userId);
+    List<Long> listAllMenuId(Long userId);
+
+    /**
+     * 获取非按钮菜单
+     *
+     * @return
+     */
+    List<SysMenuDO> listMenuNotButton();
 
     /**
      * 根据用户名，查询系统用户
@@ -52,5 +59,5 @@ public interface SysMenuMapper extends BaseMapper<SysMenuDO> {
      * @param username the username
      * @return the sys user do
      */
-    SysUserDO selectByUserName(String username);
+    SysUserDO getByUserName(String username);
 }

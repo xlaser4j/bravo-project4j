@@ -1,6 +1,5 @@
 package com.xlasers.opening.modules.sys.oauth2;
 
-import java.time.ZoneOffset;
 import java.util.Set;
 
 import com.xlasers.opening.modules.sys.entity.SysUserDO;
@@ -85,7 +84,7 @@ public class OauthRealm extends AuthorizingRealm {
         // 验证token
         String accessToken = (String) token.getPrincipal();
         SysUserTokenDO userToken = shiroService.getUserTokenByToken(accessToken);
-        if (userToken == null || userToken.getExpireTime().toInstant(ZoneOffset.ofHours(8)).toEpochMilli() < System.currentTimeMillis()) {
+        if (userToken == null || userToken.getExpireTime() < System.currentTimeMillis()) {
             log.error("【OauthRealm】认证失败! token失效,请重新登陆 !");
             throw new AuthenticationException("认证失败! token失效,请重新登陆 !");
         }

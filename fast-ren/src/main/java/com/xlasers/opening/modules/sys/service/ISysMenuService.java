@@ -28,14 +28,6 @@ public interface ISysMenuService extends IService<SysMenuDO> {
      */
     List<SysMenuDO> listSubMenuByParentId(Long parentId, List<Long> menuIds);
 
-    ///**
-    // * <p> 根据父菜单，查询子菜单
-    // *
-    // * @param id 父菜单ID
-    // * @return list 权限集合
-    // */
-    //List<SysMenuDO> listSubMenuByParentId(Long id);
-
     /**
      * <p> 获取不包含按钮的菜单列表
      *
