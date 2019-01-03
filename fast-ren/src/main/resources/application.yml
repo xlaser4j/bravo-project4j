@@ -58,7 +58,7 @@ spring:
 # mybatis-plus Config
 mybatis-plus:
   mapper-locations: classpath:mapper/**/.xml
-  type-aliases-package: com.xlasers.opening.modules.*.entity
+  type-aliases-package: com.xlaser.opening.modules.*.entity
   global-config:
     db-config:
       id-type: auto
