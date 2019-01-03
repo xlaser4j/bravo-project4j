@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xlasers.opening.modules.sys.mapper.SysUserTokenMapper">
+<mapper namespace="com.xlaser4j.opening.modules.sys.mapper.SysUserTokenMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.xlasers.opening.modules.sys.entity.SysUserTokenDO">
+    <resultMap id="BaseResultMap" type="com.xlaser4j.opening.modules.sys.entity.SysUserTokenDO">
         <id column="user_id" property="userId"/>
         <result column="token" property="token"/>
         <result column="expire_time" property="expireTime"/>
@@ -12,7 +12,7 @@
     </resultMap>
 
     <select id="selectUserTokenByToken"
-            resultType="com.xlasers.opening.modules.sys.entity.SysUserTokenDO">
+            resultType="com.xlaser4j.opening.modules.sys.entity.SysUserTokenDO">
 
     </select>
 
