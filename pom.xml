@@ -12,6 +12,7 @@
 
     <modules>
         <module>fast-ren</module>
+        <module>springboot-autoconfigure-demo</module>
     </modules>
 
 
