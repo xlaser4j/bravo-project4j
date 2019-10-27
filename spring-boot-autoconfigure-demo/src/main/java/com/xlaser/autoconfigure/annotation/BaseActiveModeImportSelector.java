@@ -20,7 +20,7 @@ import org.springframework.core.type.AnnotationMetadata;
  */
 public abstract class BaseActiveModeImportSelector<A extends Annotation> implements ImportSelector {
     /**
-     * 自定义{@link EnableFirstSelector}模式属性名,默认设置FIRST
+     * 自定义{@linkplain EnableFirstSelector, EnableSecondSelector}模式属性名,默认设置FIRST
      */
     private static final String DEFAULT_ACTIVE_MODE_ATTRIBUTE_NAME = "mode";
 
@@ -34,7 +34,7 @@ public abstract class BaseActiveModeImportSelector<A extends Annotation> impleme
     @Override
     public final String[] selectImports(AnnotationMetadata metadata) {
 
-        // 获取子类泛型类型
+        // 获取子类泛型类型(父类中可以通过getClass()动态获取运行时的子类)
         Type typeArgument = TypeUtil.getTypeArgument(getClass());
 
         // 获取注解属性值

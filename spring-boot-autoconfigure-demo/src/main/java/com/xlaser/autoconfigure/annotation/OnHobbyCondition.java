@@ -1,7 +1,12 @@
-package com.xlaser.autoconfigure.config;
+package com.xlaser.autoconfigure.annotation;
 
+import java.util.List;
+import java.util.Map;
+
+import cn.hutool.core.collection.CollUtil;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.MethodMetadata;
@@ -15,7 +20,15 @@ import org.springframework.core.type.MethodMetadata;
  * @version: V1.0
  * @modified: Elijah.D
  */
-public class ConditionOnHobby implements Condition {
+@Configuration
+public class OnHobbyCondition implements Condition {
+    private static final List<HobbyType> BACKEND_HOBBY = CollUtil.newArrayList(HobbyType.JAVA, HobbyType.PYTHON);
+
+    /**
+     * 自定义{@link ConditionalOnHobby}模式属性名,默认设置FIRST
+     */
+    private static final String DEFAULT_HOBBY_ATTRIBUTE_NAME = "hobby";
+
     /**
      * 决定是否自动装配bean
      *
@@ -25,6 +38,13 @@ public class ConditionOnHobby implements Condition {
      */
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        return false;
+
+        // 获取注解属性值
+        Map<String, Object> attributes = metadata.getAnnotationAttributes(ConditionalOnHobby.class.getName());
+        assert attributes != null;
+        HobbyType hobby = (HobbyType)attributes.get(DEFAULT_HOBBY_ATTRIBUTE_NAME);
+
+        // true/false
+        return BACKEND_HOBBY.contains(hobby);
     }
 }

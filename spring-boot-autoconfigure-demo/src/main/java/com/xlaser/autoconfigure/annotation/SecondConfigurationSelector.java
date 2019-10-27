@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
  * @package: com.xlaser.autoconfigure.annotation
  * @author: Elijah.D
  * @time: 2019/10/26 17:39
- * @description:
+ * @description: test second
  * @copyright: Copyright© 2019
  * @version: V1.0
  * @modified: Elijah.D
