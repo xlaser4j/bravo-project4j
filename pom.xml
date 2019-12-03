@@ -53,7 +53,7 @@
         <sping-test-junit5.version>1.0.2</sping-test-junit5.version>
         <compiler.version>3.0</compiler.version>
         <jacoco.version>0.7.2.201409121644</jacoco.version>
-        <camel.version>2.16.1</camel.version>
+        <camel.version>3.0.0</camel.version>
         <mockito.version>1.10.19</mockito.version>
         <apache-httpcomponents.version>4.5.2</apache-httpcomponents.version>
         <htmlunit.version>2.22</htmlunit.version>
