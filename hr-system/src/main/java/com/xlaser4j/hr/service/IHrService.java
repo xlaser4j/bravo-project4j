@@ -1,7 +1,8 @@
 package com.xlaser4j.hr.service;
 
-import com.xlaser4j.hr.entity.HrDO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xlaser4j.hr.entity.HrDO;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * @package: com.xlaser4j.hr.service
@@ -10,6 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @description:
  * @modified: Elijah.D
  */
-public interface IHrService extends IService<HrDO> {
-
+public interface IHrService extends IService<HrDO>, UserDetailsService {
 }

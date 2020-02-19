@@ -1,9 +1,12 @@
 package com.xlaser4j.hr.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xlaser4j.hr.entity.HrDO;
 import com.xlaser4j.hr.mapper.HrMapper;
 import com.xlaser4j.hr.service.IHrService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,5 +18,20 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class HrServiceImpl extends ServiceImpl<HrMapper, HrDO> implements IHrService {
+    /**
+     * 登陆验证
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        HrDO hr = getOne(new LambdaQueryWrapper<HrDO>().eq(HrDO::getUsername, username));
+        if (hr == null) {
+            throw new UsernameNotFoundException("用户名不存在!");
+        }
 
+        return hr;
+    }
 }

@@ -1,13 +1,19 @@
 package com.xlaser4j.hr.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
-import lombok.Data;
+import java.util.Collection;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @package: com.xlaser4j.hr.entity
@@ -16,13 +22,12 @@ import lombok.experimental.Accessors;
  * @description:
  * @modified: Elijah.D
  */
-@Data
+@Setter
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("hr")
-public class HrDO extends Model<HrDO> {
-
-    private static final long serialVersionUID=1L;
+public class HrDO extends Model<HrDO> implements UserDetails {
+    private static final long serialVersionUID = 1L;
 
     /**
      * hrID
@@ -66,10 +71,75 @@ public class HrDO extends Model<HrDO> {
 
     private String remark;
 
+    @TableField(exist = false)
+    private List<RoleDO> roles;
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return id;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getUserface() {
+        return userface;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+        //return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }
