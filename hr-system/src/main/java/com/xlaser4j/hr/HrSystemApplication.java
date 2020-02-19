@@ -2,6 +2,7 @@ package com.xlaser4j.hr;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.cache.annotation.EnableCaching;
  * @modified: Elijah.D
  */
 @EnableCaching
+@SpringBootApplication
 @MapperScan(basePackages = "com.xlaser4j.hr.mapper")
 public class HrSystemApplication {
     public static void main(String[] args) {
