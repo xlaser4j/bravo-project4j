@@ -1,7 +1,11 @@
 package com.xlaser4j.hr.mapper;
 
-import com.xlaser4j.hr.entity.MenuDO;
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xlaser4j.hr.entity.MenuDO;
+import com.xlaser4j.hr.entity.vo.MenuVO;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @package: com.xlaser4j.hr.mapper
@@ -10,6 +14,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @description:
  * @modified: Elijah.D
  */
+@Mapper
 public interface MenuMapper extends BaseMapper<MenuDO> {
-
+    /**
+     * 根据登陆用户id获取权限列表
+     *
+     * @param id hrId
+     * @return menus
+     */
+    List<MenuVO> listMenusByHrId(Integer id);
 }

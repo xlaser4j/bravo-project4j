@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,12 +27,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("hr")
+@ToString
 public class HrDO extends Model<HrDO> implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * hrID
-     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -55,6 +54,9 @@ public class HrDO extends Model<HrDO> implements UserDetails {
      */
     private String address;
 
+    /**
+     * 是否启用
+     */
     private Boolean enabled;
 
     /**
@@ -67,8 +69,14 @@ public class HrDO extends Model<HrDO> implements UserDetails {
      */
     private String password;
 
-    private String userface;
+    /**
+     * 头像
+     */
+    private String avatar;
 
+    /**
+     * 备注
+     */
     private String remark;
 
     @TableField(exist = false)
@@ -99,8 +107,8 @@ public class HrDO extends Model<HrDO> implements UserDetails {
         return address;
     }
 
-    public String getUserface() {
-        return userface;
+    public String getAvatar() {
+        return avatar;
     }
 
     public String getRemark() {

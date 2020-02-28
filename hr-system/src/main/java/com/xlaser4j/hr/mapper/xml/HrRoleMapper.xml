@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.xlaser4j.hr.entity.HrRoleDO">
         <id column="id" property="id" />
-        <result column="hrid" property="hrid" />
+        <result column="hid" property="hid"/>
         <result column="rid" property="rid" />
     </resultMap>
 

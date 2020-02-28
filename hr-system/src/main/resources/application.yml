@@ -1,6 +1,15 @@
+server:
+  port: 8081
 spring:
   datasource:
     username: root
     password: 1234
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/vhr?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+
+# mybatisplus config
+mybatis-plus:
+  # xml在java目录中,需要mvn配置include,同时mybatisplus自定义sql必须指定mapper-location
+  mapper-locations: classpath*:**/*Mapper.xml
+  global-config:
+    banner: false
