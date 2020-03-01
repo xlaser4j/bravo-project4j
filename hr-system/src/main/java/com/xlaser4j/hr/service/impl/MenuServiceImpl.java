@@ -5,7 +5,8 @@ import java.util.List;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xlaser4j.hr.entity.HrDO;
 import com.xlaser4j.hr.entity.MenuDO;
-import com.xlaser4j.hr.entity.vo.MenuVO;
+import com.xlaser4j.hr.entity.vo.NavMenuVO;
+import com.xlaser4j.hr.entity.vo.SecurityMenuVO;
 import com.xlaser4j.hr.mapper.MenuMapper;
 import com.xlaser4j.hr.service.IMenuService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,8 +33,18 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
      * @return menus
      */
     @Override
-    public List<MenuVO> listMenusByHrId() {
+    public List<NavMenuVO> listMenusByHrId() {
         HrDO hr = (HrDO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return mapper.listMenusByHrId(hr.getId());
+    }
+
+    /**
+     * 获取数据库请求路径,对应的角色信息,用于获取当前请求所需要的角色信息
+     *
+     * @return menuAndRoles
+     */
+    @Override
+    public List<SecurityMenuVO> listMenuAndRoles() {
+        return mapper.listMenuAndRoles();
     }
 }

@@ -8,13 +8,13 @@ import lombok.Data;
  * @package: com.xlaser4j.hr.entity.vo
  * @author: Elijah.D
  * @time: 2020/2/29 11:20
- * @description:
+ * @description: 前端导航栏vo
  * @modified: Elijah.D
  */
 @Data
-public class MenuVO {
+public class NavMenuVO {
     /**
-     * 必须返回id主键,xml中的collection才能完成一对多映射关系 ???
+     * 必须返回parent.id主键,xml中的collection才能完成一对多映射关系
      */
     private Integer id;
 
@@ -51,5 +51,5 @@ public class MenuVO {
     /**
      * 子菜单集合
      */
-    private List<MenuVO> children;
+    private List<NavMenuVO> children;
 }

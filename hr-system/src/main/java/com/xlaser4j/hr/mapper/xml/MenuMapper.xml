@@ -22,12 +22,12 @@
     </resultMap>
 
     <!-- 通过collection/association实现返回前端嵌套结构,也可以通过代码递归查询,注意extends用法,这里需要返回vo -->
-    <resultMap id="MenuMap" type="com.xlaser4j.hr.entity.vo.MenuVO" extends="BaseResultMap">
+    <resultMap id="NavMenuMap" type="com.xlaser4j.hr.entity.vo.NavMenuVO" extends="BaseResultMap">
         <association property="meta" javaType="com.xlaser4j.hr.entity.vo.Meta">
             <result column="keep_alive" property="keepAlive"/>
             <result column="require_auth" property="requireAuth"/>
         </association>
-        <collection property="children" ofType="com.xlaser4j.hr.entity.vo.MenuVO">
+        <collection property="children" ofType="com.xlaser4j.hr.entity.vo.NavMenuVO">
             <result column="c_id" property="id"/>
             <result column="c_path" property="path"/>
             <result column="c_component" property="component"/>
@@ -41,8 +41,15 @@
         </collection>
     </resultMap>
 
+    <resultMap id="SecurityMenuMap" type="com.xlaser4j.hr.entity.vo.SecurityMenuVO">
+        <result column="url" property="url"/>
+        <collection property="roles" ofType="com.xlaser4j.hr.entity.RoleDO">
+            <result column="name" property="name"/>
+        </collection>
+    </resultMap>
+
     <!-- 根据登陆用户id获取权限列表: 这里必须返回parent.id否则映射不会自动分组,实现一对多 -->
-    <select id="listMenusByHrId" resultMap="MenuMap">
+    <select id="listMenusByHrId" resultMap="NavMenuMap">
     SELECT DISTINCT
     parent.id, parent.path, parent.component, parent.name, parent.icon_cls, parent.enabled,
     parent.keep_alive, parent.require_auth,
@@ -51,6 +58,13 @@
     child.keep_alive c_keep_alive, child.require_auth c_require_auth
     FROM menu child, menu parent, hr_role hr, menu_role mr
     WHERE hr.hid = #{id} AND hr.rid = mr.rid  AND mr.mid = child.id AND child.enabled = true AND child.parent_id = parent.id
+    </select>
+
+    <!-- 获取数据库请求路径,对应的角色信息,用于获取当前请求所需要的角色信息  -->
+    <select id="listMenuAndRoles" resultMap="SecurityMenuMap">
+     SELECT m.url, r.name
+     FROM menu m, menu_role mr, role r
+     WHERE m.id = mr.mid AND mr.rid = r.id
     </select>
 
 </mapper>

@@ -4,7 +4,8 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xlaser4j.hr.entity.MenuDO;
-import com.xlaser4j.hr.entity.vo.MenuVO;
+import com.xlaser4j.hr.entity.vo.NavMenuVO;
+import com.xlaser4j.hr.entity.vo.SecurityMenuVO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -22,5 +23,12 @@ public interface MenuMapper extends BaseMapper<MenuDO> {
      * @param id hrId
      * @return menus
      */
-    List<MenuVO> listMenusByHrId(Integer id);
+    List<NavMenuVO> listMenusByHrId(Integer id);
+
+    /**
+     * 获取数据库请求路径,对应的角色信息,用于获取当前请求所需要的角色信息
+     *
+     * @return menuAndRoles
+     */
+    List<SecurityMenuVO> listMenuAndRoles();
 }

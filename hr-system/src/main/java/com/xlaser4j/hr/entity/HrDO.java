@@ -3,6 +3,7 @@ package com.xlaser4j.hr.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -14,6 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -79,6 +81,11 @@ public class HrDO extends Model<HrDO> implements UserDetails {
      */
     private String remark;
 
+    /**
+     * 登陆时根据用户名获取用户角色信息,封装到Authorities中
+     * <p>
+     * {@link #getAuthorities()}
+     */
     @TableField(exist = false)
     private List<RoleDO> roles;
 
@@ -115,10 +122,16 @@ public class HrDO extends Model<HrDO> implements UserDetails {
         return remark;
     }
 
+    /**
+     * 获取用户的角色信息,登陆时set角色
+     * <p>
+     * {@link com.xlaser4j.hr.service.IHrService#loadUserByUsername(String)}
+     *
+     * @return roleName
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-        //return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     @Override

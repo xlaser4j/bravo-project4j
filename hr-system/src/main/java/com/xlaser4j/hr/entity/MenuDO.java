@@ -29,12 +29,12 @@ public class MenuDO extends Model<MenuDO> {
     private Integer id;
 
     /**
-     * 访问url
+     * 后端url对应的ant模式pattern,方便security匹配路径判断角色信息
      */
     private String url;
 
     /**
-     * 跳转路径
+     * 前端跳转路径
      */
     private String path;
 

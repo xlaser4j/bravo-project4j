@@ -1,6 +1,5 @@
 package com.xlaser4j.hr.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -10,10 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @description:
  * @modified: Elijah.D
  */
-@RestController("/hrs")
+@RestController
 public class HrController {
-    @GetMapping("/a")
-    public String test() {
-        return "Hello";
-    }
 }

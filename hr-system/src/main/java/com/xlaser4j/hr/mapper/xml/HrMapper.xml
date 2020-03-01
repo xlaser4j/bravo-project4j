@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xlaser4j.hr.mapper.HrMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.xlaser4j.hr.entity.HrDO">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="phone" property="phone" />
-        <result column="telephone" property="telephone" />
-        <result column="address" property="address" />
-        <result column="enabled" property="enabled" />
-        <result column="username" property="username" />
-        <result column="password" property="password" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="telephone" property="telephone"/>
+        <result column="address" property="address"/>
+        <result column="enabled" property="enabled"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
         <result column="avatar" property="avatar"/>
-        <result column="remark" property="remark" />
+        <result column="remark" property="remark"/>
     </resultMap>
+
+    <select id="listRolesByHrId" resultType="com.xlaser4j.hr.entity.RoleDO">
+     SELECT r.name
+     FROM role r, hr_role hr
+     WHERE hr.hid = #{id} AND r.id = hr.rid
+    </select>
 
 </mapper>

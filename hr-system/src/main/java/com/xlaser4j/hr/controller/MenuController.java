@@ -3,7 +3,7 @@ package com.xlaser4j.hr.controller;
 import java.util.List;
 
 import com.xlaser4j.hr.common.ApiResponse;
-import com.xlaser4j.hr.entity.vo.MenuVO;
+import com.xlaser4j.hr.entity.vo.NavMenuVO;
 import com.xlaser4j.hr.service.IMenuService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +33,7 @@ public class MenuController {
      * @return menus
      */
     @GetMapping
-    public ApiResponse<List<MenuVO>> listMenusByHrId() {
-        return new ApiResponse<List<MenuVO>>().ofSuccess(service.listMenusByHrId());
+    public ApiResponse<List<NavMenuVO>> listMenusByHrId() {
+        return new ApiResponse<List<NavMenuVO>>().ofSuccess(service.listMenusByHrId());
     }
 }
