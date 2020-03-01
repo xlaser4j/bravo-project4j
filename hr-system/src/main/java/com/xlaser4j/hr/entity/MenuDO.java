@@ -1,7 +1,6 @@
 package com.xlaser4j.hr.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -77,12 +76,6 @@ public class MenuDO extends Model<MenuDO> {
      */
     @TableField("require_auth")
     private Boolean requireAuth;
-
-    /**
-     * 子菜单集合
-     */
-    @TableField(exist = false)
-    private List<MenuDO> children;
 
     @Override
     protected Serializable pkVal() {

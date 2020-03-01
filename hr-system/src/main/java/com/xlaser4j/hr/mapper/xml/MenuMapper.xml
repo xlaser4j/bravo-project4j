@@ -28,13 +28,12 @@
             <result column="require_auth" property="requireAuth"/>
         </association>
         <collection property="children" ofType="com.xlaser4j.hr.entity.vo.MenuVO">
-            <id column="c_id" property="id"/>
-            <result column="c_url" property="url"/>
+            <result column="c_id" property="id"/>
             <result column="c_path" property="path"/>
             <result column="c_component" property="component"/>
             <result column="c_name" property="name"/>
             <result column="c_icon_cls" property="iconCls"/>
-            <result column="c_parent_id" property="parentId"/>
+            <result column="c_enabled" property="enabled"/>
             <association property="meta" javaType="com.xlaser4j.hr.entity.vo.Meta">
                 <result column="c_keep_alive" property="keepAlive"/>
                 <result column="c_require_auth" property="requireAuth"/>
@@ -42,15 +41,16 @@
         </collection>
     </resultMap>
 
-    <!-- 根据登陆用户id获取权限列表 -->
+    <!-- 根据登陆用户id获取权限列表: 这里必须返回parent.id否则映射不会自动分组,实现一对多 -->
     <select id="listMenusByHrId" resultMap="MenuMap">
     SELECT DISTINCT
-    parent.id, parent.url, parent.path, parent.component, parent.name, parent.icon_cls,
-    parent.parent_id, parent.keep_alive, parent.require_auth,
-    child.id c_id, child.url c_url, child.path c_path, child.component c_component, child.name c_name,
-    child.icon_cls c_icon_cls, child.parent_id c_parent_id, child.keep_alive c_keep_alive, child.require_auth c_require_auth
+    parent.id, parent.path, parent.component, parent.name, parent.icon_cls, parent.enabled,
+    parent.keep_alive, parent.require_auth,
+    child.id c_id, child.path c_path, child.component c_component, child.name c_name,
+    child.icon_cls c_icon_cls, child.enabled c_enabled,
+    child.keep_alive c_keep_alive, child.require_auth c_require_auth
     FROM menu child, menu parent, hr_role hr, menu_role mr
-    WHERE hr.hid = #{id} AND hr.rid = mr.rid  AND mr.mid = child.id AND child.enabled AND child.parent_id=parent.id
+    WHERE hr.hid = #{id} AND hr.rid = mr.rid  AND mr.mid = child.id AND child.enabled = true AND child.parent_id = parent.id
     </select>
 
 </mapper>

@@ -13,12 +13,10 @@ import lombok.Data;
  */
 @Data
 public class MenuVO {
-    private Integer id;
-
     /**
-     * 访问url
+     * 必须返回id主键,xml中的collection才能完成一对多映射关系 ???
      */
-    private String url;
+    private Integer id;
 
     /**
      * 跳转路径
@@ -41,9 +39,9 @@ public class MenuVO {
     private String iconCls;
 
     /**
-     * 上级id
+     * 是否启用菜单
      */
-    private Integer parentId;
+    private Boolean enabled;
 
     /**
      * 封装meta方便vue调用
