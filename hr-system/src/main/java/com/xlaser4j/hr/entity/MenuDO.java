@@ -73,6 +73,9 @@ public class MenuDO extends Model<MenuDO> {
 
     /**
      * 是否需要权限
+     * <p>
+     * 扩展字段,因为目前是后端返回动态菜单,所以不需要这个字段,返回的菜单就是登陆之后有权限访问的,如果是前端写死菜单,
+     * 根据角色判断是否需要权限,就需要这个字段处理,菜单页面是否需要权限才能访问展示
      */
     @TableField("require_auth")
     private Boolean requireAuth;
