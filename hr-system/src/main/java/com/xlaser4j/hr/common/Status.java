@@ -58,6 +58,16 @@ public enum Status {
     REQUEST_NOT_FOUND(HttpStatus.NOT_FOUND),
 
     /**
+     * 数据库主外键/唯一约束异常
+     */
+    SQL_CONSTRAINT_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "数据操作异常,存在关联数据!"),
+
+    /**
+     * 数据库异常
+     */
+    SQL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "数据库异常!"),
+
+    /**
      * 未知异常
      */
     UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR),

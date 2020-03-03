@@ -117,7 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             String errorMsg = "请求失败!";
             // 未登陆也即是权限不足: Full authentication is required to access this resource
             if (e instanceof InsufficientAuthenticationException) {
-                errorMsg = "权限不足,请联系管理员!";
+                errorMsg = "系统异常,权限不足,请重新登陆后尝试!";
             }
             String data = new ObjectMapper().writeValueAsString(new ApiResponse<>().ofMessage(errorMsg));
             ServletUtil.write(res, data, MediaType.APPLICATION_JSON_UTF8_VALUE);

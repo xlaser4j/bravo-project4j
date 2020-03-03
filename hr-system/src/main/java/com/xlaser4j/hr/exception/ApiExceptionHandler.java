@@ -1,13 +1,15 @@
 package com.xlaser4j.hr.exception;
 
+import java.sql.SQLException;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.xlaser4j.hr.common.ApiResponse;
 import com.xlaser4j.hr.common.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -19,16 +21,31 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  * @modified: Elijah.D
  */
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class ApiExceptionHandler {
+    /**
+     * sql异常拦截
+     *
+     * @param e SQLException
+     * @return response
+     */
+    @ExceptionHandler(value = SQLException.class)
+    public ApiResponse<Object> handlerSqlException(SQLException e) {
+        if (e instanceof MySQLIntegrityConstraintViolationException) {
+            log.error("[全局异常拦截]MySQLIntegrityConstraintViolationException:", e);
+            return new ApiResponse<>().ofStatus(Status.SQL_CONSTRAINT_ERROR);
+        }
+        log.error("[全局异常拦截]SQLException:", e);
+        return new ApiResponse<>().ofStatus(Status.SQL_ERROR);
+    }
+
     /**
      * Handler
      *
      * @param e
      * @return response
      */
-    @ResponseBody
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = ApiException.class)
     public ApiResponse<Object> handlerException(Exception e) {
         if (e instanceof NoHandlerFoundException) {
             log.error("[全局异常拦截]NoHandlerFoundException: 请求方法 {}, 请求路径 {}", ((NoHandlerFoundException)e).getRequestURL(), ((NoHandlerFoundException)e).getHttpMethod());
