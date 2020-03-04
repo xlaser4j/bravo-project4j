@@ -51,12 +51,14 @@ public class ApiResponse<T> {
     }
 
     /**
-     * <p> 构造一个成功且带数据的API返回
+     * 构造一个失败的API返回
+     * <p>
+     * 当错误原因需要枚举的时候使用,正常的错误/成功提示使用status枚举
      *
-     * @param message 返回数据
+     * @param message 返回消息
      * @return ApiResponse api返回
      */
-    public ApiResponse<T> ofMessage(String message) {
+    public ApiResponse<T> ofFail(String message) {
         return of(Status.BAD_REQUEST.getCode(), message, null);
     }
 

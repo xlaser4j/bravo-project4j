@@ -5,10 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.xlaser4j.hr.common.ApiResponse;
-import com.xlaser4j.hr.common.Status;
 import com.xlaser4j.hr.entity.PositionDO;
 import com.xlaser4j.hr.service.IPositionService;
 import org.springframework.web.bind.annotation.*;
+
+import static com.xlaser4j.hr.common.Status.*;
 
 /**
  * @package: com.xlaser4j.hr.controller.sys
@@ -47,7 +48,7 @@ public class PositionController {
         position.setEnabled(true);
         position.setCreateAt(new Date());
         boolean flag = service.save(position);
-        return flag ? new ApiResponse<String>().ofSuccess() : new ApiResponse<String>().ofStatus(Status.BAD_REQUEST);
+        return flag ? new ApiResponse<String>().ofStatus(SAVE_SUCCESS) : new ApiResponse<String>().ofStatus(SAVE_FAIL);
     }
 
     /**
@@ -59,7 +60,7 @@ public class PositionController {
     @PutMapping
     public ApiResponse<String> updatePositionById(@RequestBody PositionDO position) {
         boolean flag = service.updateById(position);
-        return flag ? new ApiResponse<String>().ofSuccess() : new ApiResponse<String>().ofStatus(Status.BAD_REQUEST);
+        return flag ? new ApiResponse<String>().ofStatus(UPDATE_SUCCESS) : new ApiResponse<String>().ofStatus(UPDATE_FAIL);
     }
 
     /**
@@ -70,7 +71,7 @@ public class PositionController {
     @DeleteMapping("/{id}")
     public ApiResponse<String> deletePositionById(@PathVariable Integer id) {
         boolean flag = service.removeById(id);
-        return flag ? new ApiResponse<String>().ofSuccess() : new ApiResponse<String>().ofStatus(Status.BAD_REQUEST);
+        return flag ? new ApiResponse<String>().ofStatus(DELETE_SUCCESS) : new ApiResponse<String>().ofStatus(DELETE_FAIL);
     }
 
     /**
@@ -81,6 +82,6 @@ public class PositionController {
     @DeleteMapping
     public ApiResponse<String> deletePositionByIds(@RequestBody Integer[] ids) {
         boolean flag = service.removeByIds(Arrays.asList(ids));
-        return flag ? new ApiResponse<String>().ofSuccess() : new ApiResponse<String>().ofStatus(Status.BAD_REQUEST);
+        return flag ? new ApiResponse<String>().ofStatus(DELETE_SUCCESS) : new ApiResponse<String>().ofStatus(DELETE_FAIL);
     }
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import static com.xlaser4j.hr.common.Status.*;
+
 /**
  * @package: com.xlaser4j.hr.exception
  * @author: Elijah.D
@@ -33,14 +35,14 @@ public class ApiExceptionHandler {
     public ApiResponse<Object> handlerSqlException(SQLException e) {
         if (e instanceof MySQLIntegrityConstraintViolationException) {
             log.error("[全局异常拦截]MySQLIntegrityConstraintViolationException:", e);
-            return new ApiResponse<>().ofStatus(Status.SQL_CONSTRAINT_ERROR);
+            return new ApiResponse<>().ofStatus(SQL_CONSTRAINT_ERROR);
         }
         log.error("[全局异常拦截]SQLException:", e);
-        return new ApiResponse<>().ofStatus(Status.SQL_ERROR);
+        return new ApiResponse<>().ofStatus(SQL_ERROR);
     }
 
     /**
-     * Handler
+     * TODO: Handler other
      *
      * @param e
      * @return response
@@ -50,7 +52,7 @@ public class ApiExceptionHandler {
         if (e instanceof NoHandlerFoundException) {
             log.error("[全局异常拦截]NoHandlerFoundException: 请求方法 {}, 请求路径 {}", ((NoHandlerFoundException)e).getRequestURL(), ((NoHandlerFoundException)e).getHttpMethod());
 
-            return new ApiResponse<>().ofStatus(Status.REQUEST_NOT_FOUND);
+            return new ApiResponse<>().ofStatus(REQUEST_NOT_FOUND);
         } else if (e instanceof MethodArgumentNotValidException) {
             log.error("[全局异常拦截]MethodArgumentNotValidException", e);
 
@@ -58,17 +60,17 @@ public class ApiExceptionHandler {
         } else if (e instanceof MethodArgumentTypeMismatchException) {
             log.error("[全局异常拦截]MethodArgumentTypeMismatchException: 参数名 {}, 异常信息 {}", ((MethodArgumentTypeMismatchException)e).getName(), ((MethodArgumentTypeMismatchException)e).getMessage());
 
-            return new ApiResponse<>().ofStatus(Status.PARAM_NOT_MATCH);
+            return new ApiResponse<>().ofStatus(PARAM_NOT_MATCH);
         } else if (e instanceof HttpMessageNotReadableException) {
             log.error("[全局异常拦截]HttpMessageNotReadableException: 错误信息 {}", ((HttpMessageNotReadableException)e).getMessage());
 
-            return new ApiResponse<>().ofStatus(Status.PARAM_NOT_NULL);
+            return new ApiResponse<>().ofStatus(PARAM_NOT_NULL);
         } else if (e instanceof ApiException) {
             log.error("[全局异常拦截]ApiException: 状态码 {}, 异常信息 {}", ((ApiException)e).getCode(), e.getMessage());
 
             return new ApiResponse<>().ofException((ApiException)e);
         }
         log.error("[全局异常拦截]: 异常信息 {} ", e.getMessage());
-        return new ApiResponse<>().ofStatus(Status.UNKNOWN_ERROR);
+        return new ApiResponse<>().ofStatus(UNKNOWN_ERROR);
     }
 }

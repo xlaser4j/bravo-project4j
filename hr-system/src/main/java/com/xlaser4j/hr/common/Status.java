@@ -12,10 +12,17 @@ import org.springframework.http.HttpStatus;
  */
 @Getter
 public enum Status {
+    // -------- 前端统一处理拦截,当后端返回有message时,前端就需要提示弹窗,否则不提示弹窗
+
     /**
-     * 操作成功
+     * 成功,无消息
      */
-    OK(HttpStatus.OK),
+    OK(HttpStatus.OK, null),
+
+    /**
+     * 登陆成功
+     */
+    LOGIN(HttpStatus.OK, null),
 
     /**
      * 未登陆
@@ -23,19 +30,44 @@ public enum Status {
     NO_LOGIN(HttpStatus.BAD_REQUEST, "请登录!"),
 
     /**
-     * 登陆成功
-     */
-    LOGIN(HttpStatus.OK, "登陆成功!"),
-
-    /**
      * 注销成功
      */
     LOGOUT(HttpStatus.OK, "注销成功!"),
 
     /**
-     * 请求错误
+     * 新增成功
      */
-    BAD_REQUEST(HttpStatus.BAD_REQUEST),
+    SAVE_SUCCESS(HttpStatus.OK, "新增成功!"),
+
+    /**
+     * 新增失败
+     */
+    SAVE_FAIL(HttpStatus.OK, "新增失败!"),
+
+    /**
+     * 更新成功
+     */
+    UPDATE_SUCCESS(HttpStatus.OK, "更新成功!"),
+
+    /**
+     * 更新失败
+     */
+    UPDATE_FAIL(HttpStatus.OK, "更新失败!"),
+
+    /**
+     * 删除成功
+     */
+    DELETE_SUCCESS(HttpStatus.OK, "删除成功!"),
+
+    /**
+     * 删除失败
+     */
+    DELETE_FAIL(HttpStatus.OK, "删除失败!"),
+
+    /**
+     * 操作失败: 当一个操作需要失败的原因有很多,需要{@link ApiResponse#ofFail}自定义构建
+     */
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, null),
 
     /**
      * 参数不匹配
@@ -48,19 +80,14 @@ public enum Status {
     PARAM_NOT_NULL(HttpStatus.BAD_REQUEST, "请求参数不能为空!"),
 
     /**
-     * 未授权
-     */
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED),
-
-    /**
      * 请求不存在
      */
-    REQUEST_NOT_FOUND(HttpStatus.NOT_FOUND),
+    REQUEST_NOT_FOUND(HttpStatus.NOT_FOUND, "请求不存在!"),
 
     /**
      * 数据库主外键/唯一约束异常
      */
-    SQL_CONSTRAINT_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "数据操作异常,存在关联数据!"),
+    SQL_CONSTRAINT_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "数据操作异常,存在关联数据或约束限制!"),
 
     /**
      * 数据库异常
@@ -70,7 +97,7 @@ public enum Status {
     /**
      * 未知异常
      */
-    UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR),
+    UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "服务器内部错误!"),
 
     /**
      * 自定义状态码和消息
@@ -83,14 +110,9 @@ public enum Status {
     private final Integer code;
 
     /**
-     * 内容
+     * 消息
      */
     private final String message;
-
-    Status(HttpStatus status) {
-        code = status.value();
-        message = status.getReasonPhrase();
-    }
 
     Status(Integer code, String message) {
         this.code = code;
