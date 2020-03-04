@@ -1,7 +1,7 @@
 package com.xlaser4j.hr.mapper;
 
-import com.xlaser4j.hr.entity.JoblevelDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xlaser4j.hr.entity.JobLevelDO;
 
 /**
  * @package: com.xlaser4j.hr.mapper
@@ -10,6 +10,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @description:
  * @modified: Elijah.D
  */
-public interface JoblevelMapper extends BaseMapper<JoblevelDO> {
-
+public interface JobLevelMapper extends BaseMapper<JobLevelDO> {
 }

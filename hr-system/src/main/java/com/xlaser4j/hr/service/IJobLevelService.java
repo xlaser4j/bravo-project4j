@@ -1,7 +1,7 @@
 package com.xlaser4j.hr.service;
 
-import com.xlaser4j.hr.entity.JoblevelDO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xlaser4j.hr.entity.JobLevelDO;
 
 /**
  * @package: com.xlaser4j.hr.service
@@ -10,6 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @description:
  * @modified: Elijah.D
  */
-public interface IJoblevelService extends IService<JoblevelDO> {
-
+public interface IJobLevelService extends IService<JobLevelDO> {
 }

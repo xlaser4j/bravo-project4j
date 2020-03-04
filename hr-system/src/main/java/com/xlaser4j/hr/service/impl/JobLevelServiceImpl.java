@@ -1,9 +1,9 @@
 package com.xlaser4j.hr.service.impl;
 
-import com.xlaser4j.hr.entity.JoblevelDO;
-import com.xlaser4j.hr.mapper.JoblevelMapper;
-import com.xlaser4j.hr.service.IJoblevelService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xlaser4j.hr.entity.JobLevelDO;
+import com.xlaser4j.hr.mapper.JobLevelMapper;
+import com.xlaser4j.hr.service.IJobLevelService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +14,5 @@ import org.springframework.stereotype.Service;
  * @modified: Elijah.D
  */
 @Service
-public class JoblevelServiceImpl extends ServiceImpl<JoblevelMapper, JoblevelDO> implements IJoblevelService {
-
+public class JobLevelServiceImpl extends ServiceImpl<JobLevelMapper, JobLevelDO> implements IJobLevelService {
 }
