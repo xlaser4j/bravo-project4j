@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xlaser4j.hr.entity.MenuDO;
+import com.xlaser4j.hr.entity.vo.MenuVO;
 import com.xlaser4j.hr.entity.vo.NavMenuVO;
 import com.xlaser4j.hr.entity.vo.SecurityMenuVO;
 
@@ -28,4 +29,11 @@ public interface IMenuService extends IService<MenuDO> {
      * @return menuAndRoles
      */
     List<SecurityMenuVO> listMenuAndRoles();
+
+    /**
+     * 获取三级资源树,用于角色选择控制权限
+     *
+     * @return list
+     */
+    List<MenuVO> listMenuTrees();
 }

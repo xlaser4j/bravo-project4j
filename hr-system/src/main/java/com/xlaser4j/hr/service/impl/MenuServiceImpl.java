@@ -5,6 +5,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xlaser4j.hr.entity.HrDO;
 import com.xlaser4j.hr.entity.MenuDO;
+import com.xlaser4j.hr.entity.vo.MenuVO;
 import com.xlaser4j.hr.entity.vo.NavMenuVO;
 import com.xlaser4j.hr.entity.vo.SecurityMenuVO;
 import com.xlaser4j.hr.mapper.MenuMapper;
@@ -46,5 +47,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
     @Override
     public List<SecurityMenuVO> listMenuAndRoles() {
         return mapper.listMenuAndRoles();
+    }
+
+    /**
+     * 获取三级资源树,用于角色选择控制权限
+     *
+     * @return list
+     */
+    @Override
+    public List<MenuVO> listMenuTrees() {
+        return mapper.listMenuTrees();
     }
 }
