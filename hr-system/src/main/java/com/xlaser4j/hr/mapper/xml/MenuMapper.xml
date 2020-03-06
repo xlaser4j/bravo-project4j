@@ -48,13 +48,13 @@
         </collection>
     </resultMap>
 
-    <resultMap id="MenuTreeMap" type="com.xlaser4j.hr.entity.vo.MenuVO">
+    <resultMap id="MenuTreeMap" type="com.xlaser4j.hr.entity.vo.TreeVO">
         <result column="g_id" property="id"/>
         <result column="g_name" property="name"/>
-        <collection property="children" ofType="com.xlaser4j.hr.entity.vo.MenuVO">
+        <collection property="children" ofType="com.xlaser4j.hr.entity.vo.TreeVO">
             <result column="p_id" property="id"/>
             <result column="p_name" property="name"/>
-            <collection property="children" ofType="com.xlaser4j.hr.entity.vo.MenuVO">
+            <collection property="children" ofType="com.xlaser4j.hr.entity.vo.TreeVO">
                 <result column="c_id" property="id"/>
                 <result column="c_name" property="name"/>
             </collection>

@@ -18,12 +18,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class HrServiceImpl extends ServiceImpl<HrMapper, HrDO> implements IHrService {
-    private final HrMapper mapper;
-
-    public HrServiceImpl(HrMapper mapper) {
-        this.mapper = mapper;
-    }
-
     /**
      * 登陆验证
      *
@@ -38,7 +32,7 @@ public class HrServiceImpl extends ServiceImpl<HrMapper, HrDO> implements IHrSer
             throw new UsernameNotFoundException("用户名不存在!");
         }
         // 获取用户角色信息,HrDO中会封装到Authorities中,便于对比是否拥有请求路径所需要的角色
-        hr.setRoles(mapper.listRolesByHrId(hr.getId()));
+        hr.setRoles(baseMapper.listRolesByHrId(hr.getId()));
         return hr;
     }
 }

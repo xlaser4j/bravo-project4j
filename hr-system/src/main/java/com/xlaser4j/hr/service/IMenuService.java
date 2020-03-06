@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xlaser4j.hr.entity.MenuDO;
-import com.xlaser4j.hr.entity.vo.MenuVO;
 import com.xlaser4j.hr.entity.vo.NavMenuVO;
 import com.xlaser4j.hr.entity.vo.SecurityMenuVO;
+import com.xlaser4j.hr.entity.vo.TreeVO;
 
 /**
  * @package: com.xlaser4j.hr.service
@@ -35,5 +35,5 @@ public interface IMenuService extends IService<MenuDO> {
      *
      * @return list
      */
-    List<MenuVO> listMenuTrees();
+    List<TreeVO> listMenuTrees();
 }

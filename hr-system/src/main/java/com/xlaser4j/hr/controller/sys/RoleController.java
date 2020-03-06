@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.xlaser4j.hr.common.ApiResponse;
 import com.xlaser4j.hr.entity.MenuRoleDO;
 import com.xlaser4j.hr.entity.RoleDO;
-import com.xlaser4j.hr.entity.vo.MenuVO;
+import com.xlaser4j.hr.entity.vo.TreeVO;
 import com.xlaser4j.hr.service.IMenuRoleService;
 import com.xlaser4j.hr.service.IMenuService;
 import com.xlaser4j.hr.service.IRoleService;
@@ -75,8 +75,8 @@ public class RoleController {
      * @return list
      */
     @GetMapping("/menuTree")
-    public ApiResponse<List<MenuVO>> listMenuTrees() {
-        return new ApiResponse<List<MenuVO>>().ofSuccess(menuService.listMenuTrees());
+    public ApiResponse<List<TreeVO>> listMenuTrees() {
+        return new ApiResponse<List<TreeVO>>().ofSuccess(menuService.listMenuTrees());
     }
 
     /**

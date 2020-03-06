@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xlaser4j.hr.entity.MenuDO;
-import com.xlaser4j.hr.entity.vo.MenuVO;
 import com.xlaser4j.hr.entity.vo.NavMenuVO;
 import com.xlaser4j.hr.entity.vo.SecurityMenuVO;
+import com.xlaser4j.hr.entity.vo.TreeVO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -38,5 +38,5 @@ public interface MenuMapper extends BaseMapper<MenuDO> {
      *
      * @return list
      */
-    List<MenuVO> listMenuTrees();
+    List<TreeVO> listMenuTrees();
 }
