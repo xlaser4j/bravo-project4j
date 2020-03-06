@@ -9,6 +9,7 @@ import com.xlaser4j.hr.service.IHrService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -115,11 +116,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 请求异常或者权限不足处理(eg:前端非登录直接请求,前端也应该做判断用户如没有登陆,禁止直接访问页面,直接跳转到登陆页)
         AuthenticationEntryPoint point = (req, res, e) -> {
             String errorMsg = "请求失败!";
-            // 未登陆也即是权限不足: Full authentication is required to access this resource
+            // 未登陆也即是权限不足,后端服务重启,也会造成前端session失效,出现未登录状态
+            // Full authentication is required to access this resource
             if (e instanceof InsufficientAuthenticationException) {
-                errorMsg = "请确认是否有权限操作,或是服务异常导致,重新登陆后尝试!";
+                errorMsg = "认证失败,请重新登陆!";
             }
-            String data = new ObjectMapper().writeValueAsString(new ApiResponse<>().of(401, errorMsg, null));
+            // 设置http响应码401,前端处理跳转到首页(也可以response返回401前端判断response中的code)
+            res.setStatus(HttpStatus.UNAUTHORIZED.value());
+            String data = new ObjectMapper().writeValueAsString(new ApiResponse<>().ofFail(errorMsg));
             ServletUtil.write(res, data, MediaType.APPLICATION_JSON_UTF8_VALUE);
         };
         // 认证处理逻辑配置
