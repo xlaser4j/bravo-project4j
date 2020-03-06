@@ -1,11 +1,12 @@
 package com.xlaser4j.hr.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -22,9 +23,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("department")
 public class DepartmentDO extends Model<DepartmentDO> {
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID=1L;
-
+    /**
+     * id
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -33,21 +36,31 @@ public class DepartmentDO extends Model<DepartmentDO> {
      */
     private String name;
 
-    @TableField("parentId")
+    /**
+     * 父级部门id
+     */
+    @TableField("parent_id")
     private Integer parentId;
 
-    @TableField("depPath")
+    /**
+     * 层级路径id,用于搜索
+     */
+    @TableField("dep_path")
     private String depPath;
 
+    /**
+     * 是否启用
+     */
     private Boolean enabled;
 
-    @TableField("isParent")
+    /**
+     * 是否有下级(最后一级)
+     */
+    @TableField("is_parent")
     private Boolean isParent;
-
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return id;
     }
-
 }
