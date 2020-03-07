@@ -42,7 +42,7 @@ public enum Status {
     /**
      * 新增失败
      */
-    SAVE_FAIL(HttpStatus.OK, "新增失败!"),
+    SAVE_FAIL(HttpStatus.BAD_REQUEST, "新增失败!"),
 
     /**
      * 更新成功
@@ -52,7 +52,7 @@ public enum Status {
     /**
      * 更新失败
      */
-    UPDATE_FAIL(HttpStatus.OK, "更新失败!"),
+    UPDATE_FAIL(HttpStatus.BAD_REQUEST, "更新失败!"),
 
     /**
      * 删除成功
@@ -62,7 +62,17 @@ public enum Status {
     /**
      * 删除失败
      */
-    DELETE_FAIL(HttpStatus.OK, "删除失败!"),
+    DELETE_FAIL(HttpStatus.BAD_REQUEST, "删除失败!"),
+
+    /**
+     * 删除部门失败: 存在下级
+     */
+    DELETE_DEP_PARENT_FAIL(HttpStatus.BAD_REQUEST, "该部门存在下级部门,暂时不能删除!"),
+
+    /**
+     * 删除部门失败: 存在员工
+     */
+    DELETE_DEP_EMP_FAIL(HttpStatus.BAD_REQUEST, "该部门有员工使用,暂时不能删除!"),
 
     /**
      * 操作失败: 当一个操作需要失败的原因有很多,需要{@link ApiResponse#ofFail}自定义构建

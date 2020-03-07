@@ -2,7 +2,9 @@ package com.xlaser4j.hr.entity.vo;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @package: com.xlaser4j.hr.entity.vo
@@ -12,6 +14,8 @@ import lombok.Data;
  * @modified: Elijah.D
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TreeVO {
     /**
      * 权限:通过collection直接返回多级树形结构,条件是结构相同,这里的权限都是三级,所以可以通过collection返回!

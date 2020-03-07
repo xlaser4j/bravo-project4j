@@ -10,7 +10,7 @@
         <result column="parent_id" property="parentId"/>
         <result column="dep_path" property="depPath"/>
         <result column="enabled" property="enabled"/>
-        <result column="is_parent" property="isParent"/>
+        <result column="is_parent" property="parent"/>
     </resultMap>
 
     <!-- 通过mybatis的select构建递归查询 -->
@@ -26,6 +26,26 @@
     <!-- 根据父级id查询 -->
     <select id="listDepsByParentId" resultMap="DepTreeMap">
         SELECT id, name FROM department WHERE parent_id = #{parentId}
+    </select>
+
+    <!-- 通过存储过程完成新增部门的sql执行,存储过程的调用是通过select完成,同时statementType为callable代表是存储过程 -->
+    <!-- call调用存储,mode代表存储中的输入IN,输出OUT参数模式,设置对应的数据即可,输出参数需要定义好 -->
+    <!-- !!!注意:mode必须是小写,procedure中的输入输出参数顺序必须和这里的sql参数顺序必须一致,参数名可以自定义不一致 -->
+    <select id="saveDepByProcedure" statementType="CALLABLE">
+        CALL PROCEDURE_SAVE_DEP
+        (
+         #{name,mode=IN,jdbcType=VARCHAR},#{parentId,mode=IN,jdbcType=INTEGER},
+         #{procedureResult,mode=OUT,jdbcType=INTEGER},#{insertId,mode=OUT,jdbcType=INTEGER}
+        )
+    </select>
+
+    <!-- statementType:STATEMENT|PREPARED|CALLABLE -->
+    <select id="deleteDepByProcedure" statementType="CALLABLE">
+        CALL PROCEDURE_DELETE_DEP
+        (
+         #{id,mode=IN,jdbcType=INTEGER},
+         #{procedureResult,mode=OUT,jdbcType=INTEGER}
+        )
     </select>
 
 </mapper>

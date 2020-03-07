@@ -1,13 +1,17 @@
 package com.xlaser4j.hr.controller.sys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.xlaser4j.hr.common.ApiResponse;
+import com.xlaser4j.hr.common.Status;
+import com.xlaser4j.hr.entity.DepartmentDO;
 import com.xlaser4j.hr.entity.vo.TreeVO;
 import com.xlaser4j.hr.service.IDepartmentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static com.xlaser4j.hr.common.Status.SAVE_FAIL;
+import static com.xlaser4j.hr.common.Status.SAVE_SUCCESS;
 
 /**
  * @package: com.xlaser4j.hr.controller.sys
@@ -31,55 +35,36 @@ public class DepartmentController {
      * @return list
      */
     @GetMapping("/tree")
-    public ApiResponse<List<TreeVO>> listPositions() {
+    public ApiResponse<List<TreeVO>> listDepsTrees() {
         return new ApiResponse<List<TreeVO>>().ofSuccess(service.listDepsTrees());
     }
 
-    ///**
-    // * 新增职位
-    // *
-    // * @param position
-    // * @return
-    // */
-    //@PostMapping
-    //public ApiResponse<String> savePositions(@RequestBody PositionDO position) {
-    //    position.setEnabled(true);
-    //    position.setCreateAt(new Date());
-    //    boolean flag = service.save(position);
-    //    return flag ? new ApiResponse<String>().ofStatus(SAVE_SUCCESS) : new ApiResponse<String>().ofStatus(SAVE_FAIL);
-    //}
-    //
-    ///**
-    // * 编辑职位
-    // *
-    // * @param position
-    // * @return
-    // */
-    //@PutMapping
-    //public ApiResponse<String> updatePositionById(@RequestBody PositionDO position) {
-    //    boolean flag = service.updateById(position);
-    //    return flag ? new ApiResponse<String>().ofStatus(UPDATE_SUCCESS) : new ApiResponse<String>().ofStatus(UPDATE_FAIL);
-    //}
-    //
-    ///**
-    // * 删除职位信息
-    // *
-    // * @return
-    // */
-    //@DeleteMapping("/{id}")
-    //public ApiResponse<String> deletePositionById(@PathVariable Integer id) {
-    //    boolean flag = service.removeById(id);
-    //    return flag ? new ApiResponse<String>().ofStatus(DELETE_SUCCESS) : new ApiResponse<String>().ofStatus(DELETE_FAIL);
-    //}
-    //
-    ///**
-    // * 批量删除职位信息
-    // *
-    // * @return
-    // */
-    //@DeleteMapping
-    //public ApiResponse<String> deletePositionByIds(@RequestBody Integer[] ids) {
-    //    boolean flag = service.removeByIds(Arrays.asList(ids));
-    //    return flag ? new ApiResponse<String>().ofStatus(DELETE_SUCCESS) : new ApiResponse<String>().ofStatus(DELETE_FAIL);
-    //}
+    /**
+     * 新增部门
+     * <p>
+     * 这里需要返回新增的部门信息,构建成TreeVO用于前端渲染页面,直接concat到到部门树形上:listDepsTrees
+     * <p>
+     * 同时初始化children为空数组,否则前端连续新增挂在到children时还需要判断是否为null
+     *
+     * @param dep
+     * @return
+     */
+    @PostMapping
+    public ApiResponse<?> saveDep(@RequestBody DepartmentDO dep) {
+        boolean flag = service.saveDepByProcedure(dep);
+        TreeVO newNode = new TreeVO(dep.getInsertId(), dep.getName(), new ArrayList<>());
+        return flag ? new ApiResponse<TreeVO>().ofStatus(SAVE_SUCCESS, newNode) : new ApiResponse<Void>().ofStatus(SAVE_FAIL);
+    }
+
+    /**
+     * 删除部门信息
+     *
+     * @param id depId
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> deleteDep(@PathVariable Integer id) {
+        Status status = service.deleteDepByProcedure(id);
+        return new ApiResponse<Void>().ofStatus(status);
+    }
 }

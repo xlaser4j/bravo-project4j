@@ -66,6 +66,7 @@ public class PositionController {
     /**
      * 删除职位信息
      *
+     * @param id positionId
      * @return
      */
     @DeleteMapping("/{id}")

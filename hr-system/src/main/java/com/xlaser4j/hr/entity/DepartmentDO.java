@@ -57,7 +57,19 @@ public class DepartmentDO extends Model<DepartmentDO> {
      * 是否有下级(最后一级)
      */
     @TableField("is_parent")
-    private Boolean isParent;
+    private Boolean parent;
+
+    /**
+     * 存储过程调用返回值接收(用于判断是否新增成功)
+     */
+    @TableField(exist = false)
+    private Integer procedureResult;
+
+    /**
+     * 存储过程调用返回值接收(用于返回前端,动态加载tree)
+     */
+    @TableField(exist = false)
+    private Integer insertId;
 
     @Override
     protected Serializable pkVal() {
