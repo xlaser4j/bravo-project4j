@@ -24,7 +24,7 @@
         <kaptcha.version>0.0.9</kaptcha.version>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
         <hutool-all.version>4.3.2</hutool-all.version>
-        <guava.version>25.0-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <lombok.version>1.18.0</lombok.version>
         <slf4j.version>1.7.21</slf4j.version>
